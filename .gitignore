@@ -1,0 +1,26 @@
+# Arquivos de Dependências e Ambientes
+# ------------------------------------
+# Ignore a pasta do ambiente virtual do Python (v.env)
+.venv/
+venv/
+*.pyc 
+__pycache__/
+
+# Arquivos de Sistema Operacional/IDE
+# ----------------------------------
+.DS_Store          # Mac OS
+.vscode/           # Configurações do Visual Studio Code (opcional, mas comum)
+*.log
+*.sqlite
+
+# Dados e Resultados (Os arquivos que são grandes ou gerados)
+# -----------------------------------------------------------
+# Ignora a pasta de dados brutos para evitar subir arquivos grandes
+data/raw/ 
+
+# Ignora os resultados gerados (plots, arquivos de saída, modelos)
+results/ 
+
+# Arquivos de segurança (se fosse usar chaves de API)
+# ----------------------------------------------------
+.env

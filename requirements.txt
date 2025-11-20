@@ -1,0 +1,5 @@
+# requirements.txt
+nltk
+scikit-learn
+numpy
+pathlib
