@@ -1,36 +1,36 @@
-# 📊 Clusterização de Documentos com K-Means e TF-IDF
+# 📊 Document Clustering with K-Means & TF-IDF
 
-> Projeto de Data Mining aplicando NLP e Machine Learning não-supervisionado para identificar padrões temáticos em notícias.
+> An unsupervised Machine Learning project applying NLP techniques to identify thematic patterns in news articles.
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python)
 ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![NLTK](https://img.shields.io/badge/NLTK-NLP-green?style=for-the-badge)
 
-## 🧠 Sobre o Projeto
+## 🧠 About the Project
 
-Este projeto explora a eficácia do algoritmo **K-Means** na identificação automática de temas em um corpus de notícias (Dataset C50), sem qualquer rotulagem prévia.
+This project investigates the efficacy of the **K-Means algorithm** in automatically identifying topics within a news corpus (C50 Dataset) without any prior labeling (unsupervised learning).
 
-Para transformar texto em dados numéricos processáveis, utilizei a técnica **TF-IDF (Term Frequency-Inverse Document Frequency)**, que pondera a importância das palavras, penalizando termos genéricos (como artigos e preposições) e valorizando termos que carregam o significado do tópico.
+To transform unstructured text into processable numerical data, I implemented **TF-IDF (Term Frequency-Inverse Document Frequency)**. This technique weighs the importance of words, penalizing generic terms (like articles and prepositions) while boosting terms that carry significant semantic value for the topic.
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Tech Stack
 
 * **Python 3.x**
-* **Scikit-learn:** Implementação dos algoritmos de vetorização e clusterização.
-* **NLTK (Natural Language Toolkit):** Tratamento de stopwords em Português/Inglês.
-* **Pathlib:** Manipulação robusta de caminhos de sistema de arquivos.
+* **Scikit-learn:** Core implementation for vectorization (TF-IDF) and clustering algorithms.
+* **NLTK (Natural Language Toolkit):** Used for stopword removal and text preprocessing.
+* **Pathlib:** Robust file system path manipulation (OS-agnostic).
 
 ---
 
-## 🚀 Como Configurar e Executar
+## 🚀 Setup & Execution
 
-### 1. Clone o Repositório
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/kenjishimizu2411/TextualKMeans.git
+git clone [https://github.com/kenjishimizu2411/TextualKMeans.git](https://github.com/kenjishimizu2411/TextualKMeans.git)
 cd TextualKMeans
 ```
 
-### 2. Ambiente Virtual
-Recomendamos o uso de um ambiente virtual para isolar as dependências.
+### 2. Virtual Environment
+It is highly recommended to use a virtual environment to isolate dependencies.
 ```bash
 python -m venv .venv
 
@@ -41,40 +41,46 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Instalação
+### 3. Installation
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Setup dos Dados (⚠️ Importante)
-Como boas práticas de versionamento, o dataset bruto não está incluído no repositório.
-1. Baixe o **Dataset C50**.
-2. Crie a pasta `data/raw/` na raiz do projeto.
-3. Extraia a pasta `C50train` para dentro dela.
-   * Caminho esperado: `TextualKMeans/data/raw/C50train/...`
+### 4. Data Setup (⚠️ Important)
+Following data versioning best practices, the raw dataset is not included in the repository.
+1. Download the **C50 Dataset**.
+2. Create a folder named `data/raw/` in the project root.
+3. Extract the `C50train` folder inside it.
+   * Expected path: `TextualKMeans/data/raw/C50train/...`
 
-### 5. Execução
+### 5. Running the Project
 ```bash
 python main.py
 ```
-> Os resultados (arquivos .txt com os clusters) serão gerados na pasta `results/`.
+> The results (cluster output files) will be generated in the `results/` directory.
 
 ---
 
-## 📈 Análise de Resultados
+## 📈 Results Analysis
 
-Os experimentos compararam a performance do algoritmo dividindo os dados em **5** e **10** grupos. Utilizamos o **Coeficiente de Silhueta (Silhouette Score)** para medir a coesão dos clusters (quanto mais próximo de 1, melhor).
+The experiments compared the algorithm's performance by splitting the data into **5** and **10** groups (K). We used the **Silhouette Score** to measure cluster cohesion (values closer to 1 indicate better separation).
 
-| Configuração (K) | Silhouette Score (S) | Observação Qualitativa |
+| Configuration (K) | Silhouette Score (S) | Qualitative Observation |
 | :---: | :---: | :--- |
-| **K=5** | **~0.18** | Separação clara de macro-temas (Esporte, Política, Economia). |
-| **K=10** | ~0.15 | Maior granularidade, mas com sobreposição de temas e menor coesão. |
+| **K=5** | **~0.18** | Clear separation of macro-topics (Sports, Politics, Economy). |
+| **K=10** | ~0.15 | Higher granularity, but resulted in topic overlap and lower cohesion. |
 
-### 💡 Conclusão Técnica
-Embora ambos os scores sejam modestos (comum em dados textuais de alta dimensionalidade), a configuração **K=5 apresentou maior robustez ($0.18 > 0.15$)**.
+### 💡 Technical Conclusion
+Although both scores are modest—which is typical for **high-dimensional text data**—the **K=5 configuration proved more robust ($0.18 > 0.15$)**.
 
-A inspeção manual dos **Top 10 Termos** (Centróides) validou a decisão:
-* **Cluster Política:** *'government', 'president', 'reform'*
-* **Cluster Mercado:** *'oil', 'dollar', 'rate', 'market'*
+A manual inspection of the **Top 10 Terms** (Centroids) validated this decision:
+* **Politics Cluster:** *'government', 'president', 'reform'*
+* **Market Cluster:** *'oil', 'dollar', 'rate', 'market'*
 
-Apesar de K=10 ter tecnicamente menor inércia (erro quadrático), ele gerou clusters fragmentados e difíceis de interpretar, confirmando que para este dataset, **5 clusters** representam melhor a distribuição real dos tópicos.
+While K=10 technically yielded lower **inertia** (sum of squared errors), it generated fragmented clusters that were harder to interpret. This confirms that for this specific dataset, **5 clusters** better represent the natural distribution of the topics.
+
+---
+
+<p align="center">
+Developed by <strong>Kenji Shimizu</strong>
+</p>
